@@ -2,58 +2,21 @@ require 'rails_helper'
 
 RSpec.describe Note, type: :model do
 
-  it "Generates associated data from a factory" do
-    note = FactoryBot.create(:note)
-    puts "This note's project is #{note.project.inspect}"
-    puts "This note's user is #{note.user.inspect}"
-  end
-
-  before do
-    @user = User.create(
-      first_name: "Joe",
-      last_name: "Tester",
-      email: "joetester@example.com",
-      password: "password"
-    )
-
-    @project = @user.projects.create(
-      name: "Test Project"
-    )
-  end
-
   it "is valid with a user, project and message" do
-    note = Note.new(
-      message: "This is a sample note",
-      user: @user,
-      project: @project
-    )
-    expect(note).to be_valid
+    expect(FactoryBot.build(:note)).to be_valid
   end
   
   it "is invalid without a message" do
-    note = @project.notes.build(
-      message: nil
-    )
+    note = FactoryBot.build(:note, message: nil)
     note.valid?
     expect(note.errors[:message]).to include "can't be blank"
   end
 
   describe "search message for a term" do
     before do
-      @note1 = @project.notes.create(
-        message: "This is the first note.",
-        user: @user
-      )
-  
-      @note2 = @project.notes.create(
-        message: "This is the second note.",
-        user: @user
-      )
-  
-      @note3 = @project.notes.create(
-        message: "First, preheat the oven.",
-        user: @user
-      )
+      @note1 = FactoryBot.create(:note, message: "This is the first note.")
+      @note2 = FactoryBot.create(:note, message: "This is the second note.")
+      @note3 = FactoryBot.create(:note, message: "First, preheat the oven.")  
     end
 
     context "when a match is found" do
@@ -68,5 +31,11 @@ RSpec.describe Note, type: :model do
         expect(Note.search("message")).to be_empty
       end
     end
+  end
+
+  it "Generates associated data from a factory" do
+    note = FactoryBot.create(:note)
+    puts "This note's project is #{note.project.inspect}"
+    puts "This note's user is #{note.user.inspect}"
   end
 end

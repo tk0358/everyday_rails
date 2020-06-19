@@ -1,18 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it "has a valid factory" do
-    expect(FactoryBot.build(:user)).to be_valid
-  end
-
   it "is valid with a first name, last name, email, and password" do
-    user = User.new(
-      first_name: "Ruru",
-      last_name: "Kaseda",
-      email: "tester@example.com",
-      password: "password"
-    )
-    expect(user).to be_valid
+    expect(FactoryBot.build(:user)).to be_valid
   end
 
   it "is invalid without a first name" do
@@ -34,7 +24,6 @@ RSpec.describe User, type: :model do
   end
 
   it "is invalid with a duplicate email address" do
-
     FactoryBot.create(:user, email: "ruru@example.com")
     user = FactoryBot.build(:user, email: "ruru@example.com")
     user.valid?
