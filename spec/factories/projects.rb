@@ -22,6 +22,10 @@ FactoryBot.define do
       due_on { 1.day.from_now }
     end
 
+    trait :invalid do
+      name { nil }
+    end
+
     # 昨日が締め切りのプロジェクト
     # factory :project_due_yesterday do
     #   due_on { 1.day.ago }
