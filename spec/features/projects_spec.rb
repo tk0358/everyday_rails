@@ -22,9 +22,9 @@ RSpec.feature "Projects", type: :feature do
     }.to change(user.projects, :count).by(1)
   end
 
-  scenario "guest adds a project" do
+  scenario "when guest visit projects_pat, redirect_to sign_in" do
     visit projects_path
-    save_and_open_page
-    click_link "New Project"
+    expect(page).to have_current_path '/users/sign_in'
+    expect(page).to have_content "You need to sign in or sign up before continuing."
   end
 end
