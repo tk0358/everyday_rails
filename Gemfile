@@ -16,9 +16,9 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.15.2'
+  gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>= 3.4.1'
   gem 'rspec-rails'
   gem "factory_bot_rails"
 end
