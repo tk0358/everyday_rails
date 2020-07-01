@@ -32,4 +32,8 @@ RSpec.describe "Projects", type: :request do
       end
     end
   end
+
+  context "as a guest" do
+    
+  end
 end
