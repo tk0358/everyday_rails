@@ -4,11 +4,7 @@ RSpec.feature "Notes", type: :feature do
   scenario "user adds a note" do
     user = FactoryBot.create(:user)
     project = FactoryBot.create(:project, owner: user)
-    visit root_path
-    click_link "Sign in"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
+    sign_in_as(user)
     click_link project.name
     click_link "Add Note"
     expect {
@@ -23,11 +19,7 @@ RSpec.feature "Notes", type: :feature do
     user = FactoryBot.create(:user)
     project = FactoryBot.create(:project, owner: user)
     note = FactoryBot.create(:note, user: user,project: project)
-    visit root_path
-    click_link "Sign in"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
+    sign_in_as(user)
     click_link project.name
     expect(page).to have_content project.name
     expect(page).to have_content note.message
