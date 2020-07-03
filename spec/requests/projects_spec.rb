@@ -6,7 +6,7 @@ RSpec.describe "Projects", type: :request do
       @user = FactoryBot.create(:user)
     end
 
-    it "responds successfully when get projects_path"
+    it "responds successfully when get projects_path" do
       sign_in @user
       get projects_path
       expect(response).to be_success
@@ -31,9 +31,5 @@ RSpec.describe "Projects", type: :request do
         }.to_not change(@user.projects, :count)
       end
     end
-  end
-
-  context "as a guest" do
-    
   end
 end
