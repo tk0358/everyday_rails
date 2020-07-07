@@ -18,8 +18,7 @@ RSpec.feature "Tasks", type: :feature do
     expect_complete_task "Finish RSpec tutorial"
     
     undo_complete_task "Finish RSpec tutorial"
-
-    
+    expect_incomplete_task "Finish RSpec tutorial"
   end
 
   def go_to_project(name)
