@@ -12,13 +12,14 @@ RSpec.describe Project, type: :model do
     expect(project.errors[:name]).to include("can't be blank")
   end
 
-  it "does not allow duplicate project names per user" do
-    user = FactoryBot.create(:user)
-    FactoryBot.create(:project, name: "Test Project", owner: user)
-    new_project = FactoryBot.build(:project, name: "Test Project", owner: user)
-    new_project.valid?
-    expect(new_project.errors[:name]).to include("has already been taken")
-  end
+  # it "does not allow duplicate project names per user" do
+  #   user = FactoryBot.create(:user)
+  #   FactoryBot.create(:project, name: "Test Project", owner: user)
+  #   new_project = FactoryBot.build(:project, name: "Test Project", owner: user)
+  #   new_project.valid?
+  #   expect(new_project.errors[:name]).to include("has already been taken")
+  # end
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:user_id) }
 
   it "allows two users to share a project name" do
     user = FactoryBot.create(:user)

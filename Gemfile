@@ -25,6 +25,7 @@ end
 
 group :test do
   gem 'webdrivers'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 group :development do
