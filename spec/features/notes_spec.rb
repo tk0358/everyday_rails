@@ -15,7 +15,7 @@ RSpec.feature "Notes", type: :feature do
     }.to change(project.notes, :count).by(1)
   end
 
-  scenario "user deletes a note", js: true do
+  scenario "user deletes a note", js: true, slow: true do
     user = FactoryBot.create(:user)
     project = FactoryBot.create(:project, owner: user)
     note = FactoryBot.create(:note, user: user,project: project)

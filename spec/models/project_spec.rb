@@ -6,11 +6,12 @@ RSpec.describe Project, type: :model do
     expect(FactoryBot.build(:project)).to be_valid
   end
 
-  it "is invalid without name" do
-    project = FactoryBot.build(:project, name: nil)
-    project.valid?
-    expect(project.errors[:name]).to include("can't be blank")
-  end
+  # it "is invalid without name" do
+  #   project = FactoryBot.build(:project, name: nil)
+  #   project.valid?
+  #   expect(project.errors[:name]).to include("can't be blank")
+  # end
+  it { is_expected.to validate_presence_of :name}
 
   # it "does not allow duplicate project names per user" do
   #   user = FactoryBot.create(:user)
@@ -30,6 +31,13 @@ RSpec.describe Project, type: :model do
     expect(other_project).to be_valid 
   end
 
+  it "can have many notes" do
+    project = FactoryBot.create(:project, :with_notes)
+    expect(project.notes.length).to eq 5
+  end
+
+  it { is_expected.to have_many :notes }
+
   describe "late status" do
     it "is late when the due date is past today" do
       project = FactoryBot.create(:project, :due_yesterday)
@@ -44,11 +52,6 @@ RSpec.describe Project, type: :model do
     it "is on time when the due date is in the future" do
       project = FactoryBot.create(:project, :due_tomorrow)
       expect(project).to_not be_late
-    end
-
-    it "can have many notes" do
-      project = FactoryBot.create(:project, :with_notes)
-      expect(project.notes.length).to eq 5
     end
   end
 end

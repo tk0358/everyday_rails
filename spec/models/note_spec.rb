@@ -13,11 +13,13 @@ RSpec.describe Note, type: :model do
     expect(note).to be_valid
   end
   
-  it "is invalid without a message" do
-    note = Note.new(message: nil)
-    note.valid?
-    expect(note.errors[:message]).to include "can't be blank"
-  end
+  # it "is invalid without a message" do
+  #   note = Note.new(message: nil)
+  #   note.valid?
+  #   expect(note.errors[:message]).to include "can't be blank"
+  # end
+  it { is_expected.to validate_presence_of :message }
+
 
   describe "search message for a term" do
     let!(:note1) {
