@@ -20,6 +20,8 @@ RSpec.describe Note, type: :model do
   # end
   it { is_expected.to validate_presence_of :message }
 
+  it { is_expected.to have_attached_file(:attachment) }
+
 
   describe "search message for a term" do
     let!(:note1) {
