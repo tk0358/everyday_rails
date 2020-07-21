@@ -31,11 +31,10 @@ RSpec.describe Project, type: :model do
     expect(other_project).to be_valid 
   end
 
-  it "can have many notes" do
-    project = FactoryBot.create(:project, :with_notes)
-    expect(project.notes.length).to eq 5
-  end
-
+  # it "can have many notes" do
+  #   project = FactoryBot.create(:project, :with_notes)
+  #   expect(project.notes.length).to eq 5
+  # end
   it { is_expected.to have_many :notes }
 
   describe "late status" do
